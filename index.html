@@ -32,7 +32,7 @@
       var c= data.data.cvData;
       c.push(data.data.activeSelections);
       //console.log(JSON.stringify(c));
-      data.data.slice(0,1);
+      delete data.data['products'];
       console.log(JSON.stringify(data));
 
     },
