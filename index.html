@@ -27,7 +27,7 @@
     onCheckout: function(data) {
       // User clicked the checkout button that is visible on results page
       // after adding one or more products to cart. Redirect to checkout page?
-      console.log('User clicked checkout, CV data is :'+ JSON.stringify(data.cvData) + 'active selections are : ' + data.activeSelections);
+      console.log('User clicked checkout, CV data is :'+ JSON.stringify(data.data.cvData) + '   active selections are : ' + data.data.cvData+data.data.activeSelections);
       //console.log(data.cvData);
     },
     onClickProduct: function(product) {
