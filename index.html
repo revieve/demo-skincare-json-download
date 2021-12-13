@@ -1,288 +1,58 @@
-
-<html>
-<head>
-  <style>
-    table, th, td {
-      border: 1px solid black;
-    }
-    
-    th, td {
-      padding: 10px;
-    }
-      
-   $green: #408000;
-$dark-green: #2c5700;
-
-%os-element-reset {
-	display: inline-block;
-	overflow: visible;
-
-	padding: 0;
-	margin: 0;
-	outline: 0;
-
-	font: inherit;
-	color: inherit;
-	background-color: transparent;
-	border: none;
-
-	text-transform: inherit;
-
-	-webkit-font-smoothing: inherit;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-}
-%button-reset{
-	@extend %os-element-reset;
-	cursor: pointer;
-	-webkit-box-sizing: content-box;
-	   -moz-box-sizing: content-box;
-	        box-sizing: content-box;
-
-	&::-moz-focus-inner {
-		padding: 0;
-		border: 0;
-	}
-}
-
-
-html {
-  background: $green;
-  color: $dark-green;
-  text-align: center;
-}
-
-
-button {
-  @extend %button-reset;
-  position: relative;
-  background: white;
-  padding: 0.3em 0.5em;
-  margin: 0.3em;
-  font-size: 1.3em;
-  border-radius: 0.3em;
-  
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  
-  &:before {
-    content: '';
-    position: absolute;
-    top: 4px;
-    left: 1px;
-    width: 100%;
-    height: 100%;
-    border-radius: 0.3em;
-    background: rgba(#fff, 0.5);
-    transition: background 0.2s;
-    z-index: -1;
-  }
-  &:hover:before,
-  &:focus:before {
-    background: rgba(#fff, 0.7);
-  }
-  &:active {
-    transform: translate(1px, 3px);
-    &:before {
-      transform: translate(-1px, -3px);
-    }
-  }
-}
-
-.tr {
-  &,
-  &:before {
-    transition: transform 0.2s, background 0.2s;
-  }
-}
-.no-tr-in:active {
-  &,
-  &:before {
-    transition: none;
-  }
-}
-
-    </style>
+<script type="text/javascript">
   
 
-</head>
+  var config = {
+    partner_id: '9KpsLizwYK',
+    locale: 'en',
+    env: 'test', // for test env. Change to prod for production deployment
+    onAddToCart: function(products) {
+      // To be filled in by skincaredemo
+      if (Array.isArray(products)) {
+        // Array means we got multiple products (add all to cart)
+        console.log("User clicked add all cart. Adding all products to shopping cart.");
+        console.log(products);
+      } else {
+        // Single object means we got one product (add to cart)
+        console.log("User clicked add to cart. Adding the product to shopping cart.");
+        console.log(products);
+      }
+    },
+    onClose: function() {
+      // User closed modal. Here you could forward them to checkout if they had 
+      // added products (onAddToCart was called before).
+      console.log('User clicked close');
+    },
+    onCheckout: function(data) {
+      // User clicked the checkout button that is visible on results page
+      // after adding one or more products to cart. Redirect to checkout page?
+      console.log('User clicked checkout');
+    },
+    onClickProduct: function(product) {
+      // To be filled in by skincaredemo. 
+      console.log("User clicked info action.");
+      console.log(product);
+      var win = window.open(product.url, '_blank');
+      win.focus();
+    },
+  };
 
-    
-<body>
-
-  <h2>Customer Cart</h2>
-  <h3>Skin Care Solution</h3>
-
-<button type="button" onclick="runRevieveInstance('aKn7oJOUdI')">Click Me!</button>
-
-<h3>Makeup Demo</h3>
-
-<button type="button" onclick="runRevieveInstance('d2pqmC1teW')">Click Me!</button>
-
-
-    <table id = "cart">
- 
-    <thead>
-     <!--
-     <tr>
-      
-        <th>Product Name</th>
-        <th>Price</th>
-      
-      </tr>
-      -->
-    </thead>
-    <tfoot>
-      <tr>
-        <!--
-        <th>Total</th>
-        -->
-        <th id = "total"></th>
-      </tr>
-    </tfoot>
-
-  </table>
-
-  <script>
-  
-  /*
-  VTO User ID: 7cwM78j1S3
-  
-  <button ontouchstart="return true;" class="tr">mousedown+mouseup</button><br>
-<button ontouchstart="return true;" class="tr no-tr-in">mouseup</button><br>
-<button ontouchstart="return true;">Instant</button>
-
-<button>Default Button</button>
-<a href="#" class="button">Link Button</a>
-<button class="button">Button</button>
-<input type="button" class="button" value="Input Button">
-  
-  */
-  
-  
-    var total = 0;
-    var config = {
-      //partner_id: 'sqZKKhwbZ1',
-      //locale: 'en',
-      //env: 'test', // for test env. Change to prod for production deployment
-      onAddToCart: function (products) {
-        // To be filled in by skincaredemo
-        if (Array.isArray(products)) {
-          // Array means we got multiple products (add all to cart)
-          console.log("User clicked add all cart. Adding all products to shopping cart.");
-          console.log(products);
-          var table = document.getElementById("cart");
-
-          for (var i = 1; i < products.length; i++) {
-            var tr = document.createElement('tr');
-
-            var td1 = document.createElement('td');
-            var td2 = document.createElement('td');
-
-            var text1 = document.createTextNode(products[i].name);
-            var text2 = document.createTextNode(products[i].price);
-            total = total + products[i].price;
-
-            td1.appendChild(text1);
-            td2.appendChild(text2);
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-
-            table.appendChild(tr);
-          }
-
-          var amount = document.getElementById("total");                          
-          amount.innerHTML = total.toPrecision(4);
-
-          document.body.appendChild(table);
-
-
-
-        } else {
-          // Single object means we got one product (add to cart)
-          console.log("User clicked add to cart. Adding the product to shopping cart.");
-           
-
-          var table = document.getElementById("cart");
-
-
-          var tr = document.createElement('tr');
-
-          var td1 = document.createElement('td');
-          var td2 = document.createElement('td');
-
-          
-          var text1 = document.createTextNode(products.name);
-          var text2 = document.createTextNode(products.price);
-
-          td1.appendChild(text1);
-          td2.appendChild(text2);
-          tr.appendChild(td1);
-          tr.appendChild(td2);
-
-          table.appendChild(tr);
-
-          var amount = document.getElementById("total");          
-          total = total + products.price;          
-          amount.innerHTML = total.toPrecision(4);
-
-         document.body.appendChild(table);
-
-
-        }
-      },
-      onClose: function () {
-        // User closed modal. Here you could forward them to checkout if they had 
-        // added products (onAddToCart was called before).
-        console.log('User clicked close');
-      },
-      onCheckout: function (data) {
-        // User clicked the checkout button that is visible on results page
-        // after adding one or more products to cart. Redirect to checkout page?
-        console.log('User clicked checkout, HERE IS THE DATA: ' + data);
-          Revieve.API.hide();
-      },
-      onClickProduct: function (product) {
-        // To be filled in by skincaredemo. 
-        console.log("User clicked info action.");
-        console.log(product);
-        var win = window.open(product.url, '_blank');
-        win.focus();
-      },
-    };
-
-    (function () {
-      var rv = document.createElement('script');
-      rv.src = 'https://d38knilzwtuys1.cloudfront.net/revieve-plugin-v4/revieve-plugin-loader.js';
-      rv.charset = 'utf-8';
-      rv.type = 'text/javascript';
-      rv.async = 'true';
-      rv.onload = rv.onreadystatechange = function () {
-        var rs = this.readyState;
-        if (rs && rs != 'complete' && rs != 'loaded') return;
-        /*
-          Revieve.Init(config, function () {
-          // Comment out the below line if you want to open the modal
-          // manually when user clicks a certain button or navigates
-          // to certain page.
-          //Revieve.API.show();
-        });*/
-          
-           window.runRevieveInstance = function (partnerId) {
-      Revieve.API.unmount();
-      Revieve.Init({env: "test", locale: "en", partner_id: partnerId}, config, function () {
+  (function() {
+    var rv = document.createElement('script');
+    rv.src = 'https://d38knilzwtuys1.cloudfront.net/revieve-plugin-v4/revieve-plugin-loader.js';
+    rv.charset = 'utf-8';
+    rv.type = 'text/javascript';
+    rv.async = 'true';
+    rv.onload = rv.onreadystatechange = function() {
+      var rs = this.readyState;
+      if (rs && rs != 'complete' && rs != 'loaded') return;
+      Revieve.Init(config, function() {
+        // Comment out the below line if you want to open the modal
+        // manually when user clicks a certain button or navigates
+        // to certain page.
         Revieve.API.show();
-      })
-    }
-          
-          
-      };
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(rv, s);
-    })();
-  </script>
-
-  
- 
-</body>
-
-</html>
+      });
+    };
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(rv, s);
+  })();
+</script>
