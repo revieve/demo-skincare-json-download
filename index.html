@@ -33,6 +33,7 @@
       c.push(data.data.activeSelections);
       //console.log(JSON.stringify(c));
       delete data.data['products'];
+      delete data.data.activeSelections['locationData'];
       console.log(JSON.stringify(data));
 
     },
