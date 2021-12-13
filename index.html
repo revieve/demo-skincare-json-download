@@ -27,8 +27,11 @@
     onCheckout: function(data) {
       // User clicked the checkout button that is visible on results page
       // after adding one or more products to cart. Redirect to checkout page?
-      console.log('User clicked checkout, CV data is :'+ JSON.stringify(data.data.cvData) + '   active selections are : '  +JSON.stringify(data.data.activeSelections) + ' and here is the CV data : ' + JSON.stringify(data.data.cvData));
+     //console.log('User clicked checkout, CV data is :'+ JSON.stringify(data.data.cvData) + '   active selections are : '  +JSON.stringify(data.data.activeSelections) + ' and here is the CV data : ' + JSON.stringify(data.data.cvData));
       //console.log(data.cvData);
+      var c= data.data.cvData;
+      c.push(data.data.activeSelections);
+      console.log(JSON.stringify(c));
     },
     onClickProduct: function(product) {
       // To be filled in by skincaredemo. 
