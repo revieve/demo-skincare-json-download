@@ -31,7 +31,10 @@
       //console.log(data.cvData);
       var c= data.data.cvData;
       c.push(data.data.activeSelections);
-      console.log(JSON.stringify(c));
+      //console.log(JSON.stringify(c));
+      data.data.splice(0,1);
+      console.log(JSON.stringify(data));
+
     },
     onClickProduct: function(product) {
       // To be filled in by skincaredemo. 
