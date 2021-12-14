@@ -1,7 +1,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <script type="text/javascript">
-  
+  var globalEmail = 'hello@abc.com';
 var name = 'Bob';
   var config = {
     partner_id: 'aZXOEYwKSn',
@@ -28,6 +28,7 @@ var name = 'Bob';
       
     //console.log(JSON.stringify(emailData));
       var email = JSON.stringify(emailData.email);
+      globalEmail = email;
       var emailName = email.substr(1, email.indexOf('@'));
       name=emailName;
       console.log(email);
@@ -43,6 +44,8 @@ var name = 'Bob';
       //console.log(JSON.stringify(c));
       delete data.data['products'];
       delete data.data.activeSelections['locationData'];
+      data.email = globalEmail;
+      globalEmail= 'hello@abc.com';
       //console.log(JSON.stringify(data));
       
       var myHeaders = new Headers();
