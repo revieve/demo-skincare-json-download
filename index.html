@@ -35,6 +35,35 @@
       delete data.data['products'];
       delete data.data.activeSelections['locationData'];
       console.log(JSON.stringify(data));
+      
+      var myHeaders = new Headers();
+myHeaders.append("X-RapidAPI-Key", "89004c1120mshf4a79aa7c2995aep1d9f77jsn049236ba3331");
+myHeaders.append("Host", "json2xls-json-xls-v1.p.rapidapi.com");
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("responseType", "arraybuffer");
+var raw = JSON.stringify(data);
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+var filename = 'kakaji';
+fetch("https://json2xls-json-xls-v1.p.rapidapi.com/ConvertJsonRaw?format=xlsx&layout=Landscape&view=Hierarchy&InternalIDs=None", requestOptions)
+  .then(response => response.blob())
+ .then(blob => URL.createObjectURL(blob))
+ .then(uril => {
+ var link = document.createElement("a");
+ link.href = uril;
+ link.download = filename + ".xlsx";
+ document.body.appendChild(link);
+ link.click();
+ document.body.removeChild(link);
+ });  
+      
+      
+      
 
     },
     onClickProduct: function(product) {
