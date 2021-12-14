@@ -28,7 +28,7 @@ var name = 'Bob';
       
     //console.log(JSON.stringify(emailData));
       var email = JSON.stringify(emailData.email);
-      var emailName = email.substr(0, email.indexOf('@'));
+      var emailName = email.substr(1, email.indexOf('@'));
       name=emailName;
       console.log(email);
       
