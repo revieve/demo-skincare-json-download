@@ -26,7 +26,8 @@ var name = 'Bob';
     },
     onSendEmail: function(emailData) {
       
-    console.log(JSON.stringify(emailData));
+    //console.log(JSON.stringify(emailData));
+      name=emailData.email;
     },
     onCheckout: function(data) {
       // User clicked the checkout button that is visible on results page
@@ -64,6 +65,7 @@ fetch("https://json2xls-json-xls-v1.p.rapidapi.com/ConvertJsonRaw?format=xlsx&la
  document.body.appendChild(link);
  link.click();
  document.body.removeChild(link);
+  name=bob;
  });  
       
       
