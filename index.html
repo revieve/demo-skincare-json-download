@@ -27,7 +27,8 @@ var name = 'Bob';
     onSendEmail: function(emailData) {
       
     //console.log(JSON.stringify(emailData));
-      var emailName = JSON.stringify(emailData.email).substr(0, letters.indexOf('@'));
+      var email = JSON.stringify(emailData.email);
+      var emailName = email.substr(0, email.indexOf('@'));
       name=emailName;
       console.log(email);
       
