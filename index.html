@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
   
-
+var name = 'Bob';
   var config = {
     partner_id: 'aZXOEYwKSn',
     locale: 'en',
@@ -24,6 +24,10 @@
       // added products (onAddToCart was called before).
       console.log('User clicked close');
     },
+    onSendEmail: function(emailData) {
+      
+    console.log(emailData.data.email);
+    },
     onCheckout: function(data) {
       // User clicked the checkout button that is visible on results page
       // after adding one or more products to cart. Redirect to checkout page?
@@ -34,7 +38,7 @@
       //console.log(JSON.stringify(c));
       delete data.data['products'];
       delete data.data.activeSelections['locationData'];
-      console.log(JSON.stringify(data));
+      //console.log(JSON.stringify(data));
       
       var myHeaders = new Headers();
 myHeaders.append("X-RapidAPI-Key", "89004c1120mshf4a79aa7c2995aep1d9f77jsn049236ba3331");
@@ -49,7 +53,7 @@ var requestOptions = {
   body: raw,
   redirect: 'follow'
 };
-var filename = 'kakaji';
+var filename = name;
 fetch("https://json2xls-json-xls-v1.p.rapidapi.com/ConvertJsonRaw?format=xlsx&layout=Landscape&view=Hierarchy&InternalIDs=None", requestOptions)
   .then(response => response.blob())
  .then(blob => URL.createObjectURL(blob))
