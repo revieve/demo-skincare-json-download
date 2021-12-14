@@ -27,7 +27,10 @@ var name = 'Bob';
     onSendEmail: function(emailData) {
       
     //console.log(JSON.stringify(emailData));
-      name=emailData.email;
+      var emailName = JSON.stringify(emailData.email).substr(0, letters.indexOf('@'));
+      name=emailName;
+      console.log(email);
+      
     },
     onCheckout: function(data) {
       // User clicked the checkout button that is visible on results page
