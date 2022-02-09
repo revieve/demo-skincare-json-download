@@ -2,12 +2,12 @@
 
 <script type="text/javascript">
   var globalEmail = 'hello@abc.com';
-var name = 'Bob';
+  var name = 'Bob';
   var config = {
     partner_id: 'aZXOEYwKSn',
     locale: 'en',
     env: 'test', // for test env. Change to prod for production deployment
-    onAddToCart: function(products) {
+    onAddToCart: function (products) {
       // To be filled in by skincaredemo
       if (Array.isArray(products)) {
         // Array means we got multiple products (add all to cart)
@@ -19,68 +19,64 @@ var name = 'Bob';
         console.log(products);
       }
     },
-    onClose: function() {
+    onClose: function () {
       // User closed modal. Here you could forward them to checkout if they had 
       // added products (onAddToCart was called before).
       console.log('User clicked close');
     },
-    onSendEmail: function(emailData) {
-      
-    //console.log(JSON.stringify(emailData));
+    onSendEmail: function (emailData) {
+
+      //console.log(JSON.stringify(emailData));
       var email = JSON.stringify(emailData.email);
-      globalEmail = email.substr(1, email.length-2);
-      var emailName = email.substr(1, email.indexOf('@')-1);
-      name=emailName;
+      globalEmail = email.substr(1, email.length - 2);
+      var emailName = email.substr(1, email.indexOf('@') - 1);
+      name = emailName;
       console.log(email);
-      
+
     },
-    onCheckout: function(data) {
+    onCheckout: function (data) {
       // User clicked the checkout button that is visible on results page
       // after adding one or more products to cart. Redirect to checkout page?
-     //console.log('User clicked checkout, CV data is :'+ JSON.stringify(data.data.cvData) + '   active selections are : '  +JSON.stringify(data.data.activeSelections) + ' and here is the CV data : ' + JSON.stringify(data.data.cvData));
+      //console.log('User clicked checkout, CV data is :'+ JSON.stringify(data.data.cvData) + '   active selections are : '  +JSON.stringify(data.data.activeSelections) + ' and here is the CV data : ' + JSON.stringify(data.data.cvData));
       //console.log(data.cvData);
-      var c= data.data.cvData;
+      var c = data.data.cvData;
       c.push(data.data.activeSelections);
       //console.log(JSON.stringify(c));
       console.log(JSON.stringify(data));
       delete data.data['products'];
       delete data.data.activeSelections['locationData'];
       data.email = globalEmail;
-      globalEmail= 'hello@abc.com';
+      globalEmail = 'hello@abc.com';
       //console.log(JSON.stringify(data));
-      
+
       var myHeaders = new Headers();
-myHeaders.append("X-RapidAPI-Key", "89004c1120mshf4a79aa7c2995aep1d9f77jsn049236ba3331");
-myHeaders.append("Host", "json2xls-json-xls-v1.p.rapidapi.com");
-myHeaders.append("Content-Type", "application/json");
-myHeaders.append("responseType", "arraybuffer");
-var raw = JSON.stringify(data);
+      myHeaders.append("X-RapidAPI-Key", "89004c1120mshf4a79aa7c2995aep1d9f77jsn049236ba3331");
+      myHeaders.append("Host", "json2xls-json-xls-v1.p.rapidapi.com");
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("responseType", "arraybuffer");
+      var raw = JSON.stringify(data);
 
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
-var filename = name;
-fetch("https://json2xls-json-xls-v1.p.rapidapi.com/ConvertJsonRaw?format=xlsx&layout=Landscape&view=Hierarchy&InternalIDs=None", requestOptions)
-  .then(response => response.blob())
- .then(blob => URL.createObjectURL(blob))
- .then(uril => {
- var link = document.createElement("a");
- link.href = uril;
- link.download = filename + ".xlsx";
- document.body.appendChild(link);
- link.click();
- document.body.removeChild(link);
-  name='bob';
- });  
-      
-      
-      
-
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+      var filename = name;
+      fetch("https://json2xls-json-xls-v1.p.rapidapi.com/ConvertJsonRaw?format=xlsx&layout=Landscape&view=Hierarchy&InternalIDs=None", requestOptions)
+        .then(response => response.blob())
+        .then(blob => URL.createObjectURL(blob))
+        .then(uril => {
+          var link = document.createElement("a");
+          link.href = uril;
+          link.download = filename + ".xlsx";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          name = 'bob';
+        });
     },
-    onClickProduct: function(product) {
+    onClickProduct: function (product) {
       // To be filled in by skincaredemo. 
       console.log("User clicked info action.");
       console.log(product);
@@ -89,16 +85,16 @@ fetch("https://json2xls-json-xls-v1.p.rapidapi.com/ConvertJsonRaw?format=xlsx&la
     },
   };
 
-  (function() {
+  (function () {
     var rv = document.createElement('script');
     rv.src = 'https://d38knilzwtuys1.cloudfront.net/revieve-plugin-v4/revieve-plugin-loader.js';
     rv.charset = 'utf-8';
     rv.type = 'text/javascript';
     rv.async = 'true';
-    rv.onload = rv.onreadystatechange = function() {
+    rv.onload = rv.onreadystatechange = function () {
       var rs = this.readyState;
       if (rs && rs != 'complete' && rs != 'loaded') return;
-      Revieve.Init(config, function() {
+      Revieve.Init(config, function () {
         // Comment out the below line if you want to open the modal
         // manually when user clicks a certain button or navigates
         // to certain page.
